@@ -5,3 +5,20 @@
 # @lc code=start
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+    
+        “出现index 和 value，并且返回下标或者value的题 考虑字典”
+        
+        “记录nums中的key-value” ——————dic[num] = i
+        
+        “return 之前出现过的字典的value和目前for循环的index”
+        
+        “时间复杂度O（n）”
+        
+        dic = {}
+        for index, num in enumerate(nums):
+            remain_value = target - num
+            if remain_value in dic:
+                return [dic[remain_value], index]
+            else:
+                dic[num] = index
+        return None
