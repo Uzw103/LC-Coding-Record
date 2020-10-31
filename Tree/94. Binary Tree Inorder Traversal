@@ -1,0 +1,35 @@
+#
+# @lc app=leetcode id=144 lang=python3
+#
+# [94] Binary Tree Inorder Traversal
+#
+'''
+    1. 运用栈存储树的结点 用栈“先入后出”的特性 依次遍历式的存储结点
+    2. 中序遍历是“左——根——右”。
+    3. 找到最左子结点后 pop，结点值存入res中，找其右子树
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+  class Solution:
+      def inorderTraversal(self, root:TreeNode) -> List[int]:
+          if not root:
+              return []
+          stack, res = [], []
+          node = root
+          while stack or node:
+              if node:
+                  stack.append(node)
+                  node = node.left
+              else:
+                  node = stack.pop()
+                  res.append(node.val)
+                  node = node.right
+          return res
+                  
+          
