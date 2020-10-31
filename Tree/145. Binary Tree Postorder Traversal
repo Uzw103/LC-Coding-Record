@@ -1,0 +1,46 @@
+#
+# @lc app=leetcode id=145 lang=python3
+#
+# [145] Binary Tree Postorder Traversal
+#
+
+'''
+      1. 后序遍历需要设定一个pre结点 
+      2. 还是先找最左结点 放到栈里 判断其有没有右子树了 有就继续存栈遍历
+      3. 没有右子树后 继续pop左子树的结点 
+      4. 有右结点时 把pop的这一个结点放回去 得先输出右结点 才能输出root
+      5. 重复以上步骤 输出该右结点 并移动pre结点 防止下次输出root的时候又回来输出这个右节点了
+      6. repeat大法
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
+        stack = []
+        res = []
+        pre_node = None
+        node = root
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop() #当不存在右子树的时候 回到这一步 继续pop
+            if node.right or node.right == pre_node: #这一步==pre_node是为了防止继续遍历前一步遍历过的右结点
+                res.append(node.val)
+                pre_node = node
+                node = None
+            else:
+                stack.append(node)
+                node = node.right
+        return res
+            
+                
+        
