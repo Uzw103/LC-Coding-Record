@@ -1,0 +1,39 @@
+#
+# @lc app=leetcode id=987 lang=python3
+#
+# [987] Vertical Order Traversal of a Binary Tree
+#
+'''
+      1. 用到的是前序遍历二叉树+list保存结点元组+list排序+判断前后两个row是否相同
+      2. 相同x、y值下，按其val排序。
+      3. 本题另一关键点：如何在判断是否结点属于一个轴，属于一个轴应如何append。——————答：创建空列表，每次append到空列表中
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        if not root:
+            return []
+        position_and_val = []
+        def preorder(root, x, y):
+            if not root:
+                return []
+            position_and_val.append((x, y, root.val))
+            preorder(root.left, x - 1, y + 1)
+            preotder(root.right, x + 1, y + 1)
+        preorder(root, 0, 0)
+        last_axis = None
+        res = []
+        for x, y, val in sorted(position_and_val):
+            if x != last_axis:
+                res.append([])
+                last_axis = x
+            res[-1].append(val)
+        return res
+        
