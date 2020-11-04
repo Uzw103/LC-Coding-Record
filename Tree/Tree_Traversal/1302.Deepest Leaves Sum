@@ -1,0 +1,34 @@
+#
+# @lc app=leetcode id=1302 lang=python3
+#
+# [1302] Deepest Leaves Sum
+#
+’‘’
+      1. 用DFS遍历找到最深的叶子结点 
+      2. 创建两个全局变量 一个记录当前最底层的node sum，一个记录树的最大深度
+      3. 三个判断条件 maxdep大于当前这个结点的深度；等于当前结点的深度；小于当前结点的深度 这些判断在进行DFS的每一次遍历查找时都要进行
+'''
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.maxdep = -1 ##全局变量 
+        self.total = 0
+
+    def deepestLeavesSum(self, root: TreeNode) -> int:
+        def dfs(node, depth):
+            if not node:
+                return 
+            if depth > self.maxdep:
+                self.maxdep, self.total = depth, node.val
+            elif depth == self.maxdep:
+                self.total += node.val
+            dfs(node.left, depth + 1)
+            dfs(node.right, depth + 1)
+        dfs(root, 0)
+        return self.total
