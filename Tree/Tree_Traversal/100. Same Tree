@@ -1,0 +1,26 @@
+#
+# @lc app=leetcode id=100 lang=python3
+#
+# [100] Same Tree
+#
+‘’‘
+      1. 普通方法：用前序遍历DFS存储每棵树的结点值 在递归遍历的同时 将子树为空的地方append成None
+      2. 优化方法：深度优先遍历的递归方法做 不用保存所有结点值 两棵树同时比较从上到下的结点 时间复杂度取min（m，n），m n为结点数
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:   #优化方法
+        if not p and not q:
+            return True
+        elif not p or not q:
+            return False
+        elif p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
