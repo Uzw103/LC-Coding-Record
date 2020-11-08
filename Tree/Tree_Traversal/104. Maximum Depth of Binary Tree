@@ -1,0 +1,26 @@
+#
+# @lc app=leetcode id=104 lang=python3
+#
+# [104] Maximum Depth of Binary Tree
+#
+'''
+        1. 主要有两种方法：DFS（recursion）和BFS
+        2. DFS是后序遍历 即先判断其左右子树的深度 再附加上根节点的
+        3. BFS就是普通的创建队列
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        #DFS+Recursion版本
+        if not root:
+            return 0
+        left_depth = self.maxDepth(root.left)
+        right_depth = self.maxDepth(root.right)
+        return max(left_depth, right_depth) + 1
