@@ -1,0 +1,26 @@
+#
+# @lc app=leetcode id=111 lang=python3
+#
+# [111] Minimum Depth of Binary Tree
+#
+'''
+        1. 和104求最大深度类似 可以用DFS的Recursion或者BSF做
+        2. BFS的终止条件是：是当遇到叶子结点的时候就返回当前的深度
+        3. DFS是对于每一个非叶子结点 ，递归地计算左右子树的最小深度
+’‘’
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def minDepth(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        left = minDepth(root.left)
+        right = minDepth(root.right)
+        if root.left and root.right:
+            return min(left, right) + 1
+        return left+ right + 1
