@@ -1,0 +1,33 @@
+#
+# @lc app=leetcode id=110 lang=python3
+#
+# [110] Balanced Binary Tree
+#
+‘’‘
+        1. 有两种方法的递归实现：自顶向下和自下至顶
+        2. 自顶向下是DFS，每次只传进去当前结点，判断左右子树是否满足结点的左右子树高度差不大于1，从根节点向下，逐一判断 因此每个结点被遍历到多次，最坏O(n^2)
+        3. 自底向上也是DFS，不过在递归函数的时候就判断其左右子树是否满足平衡树 也就是找到最底叶子结点后 不断向上累加深度 每个结点只需要判断一次 因此On
+'''
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def __init__(self):
+        self.balance = True
+        
+    def isBalanced(self, root: TreeNode) -> bool:
+        def dfs(node):
+            if not node:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+            if abs(left - right) > 1:
+                self.balance = False
+            return max(left, right) + 1
+        dfs(root)
+        return self.balance
+        
