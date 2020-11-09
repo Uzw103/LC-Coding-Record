@@ -1,0 +1,62 @@
+#
+# @lc app=leetcode id=572 lang=python3
+#
+# [572] Subtree of Another Tree
+#
+'''
+      1. 两种方法：使用递归的DFS+DFS或使用BFS+DFS
+      2. 构建两个函数：第一个是主函数，判断是否存在s的子树与t相同
+                    第二个是判断两颗树是否值相等
+      3. 
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool: #这个函数的作用是判断是否存在相等子树
+    ''' DFS+ DFS '''
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        if self.isSame(s, t):
+            return True
+        return self.isSubtree(s.left, t) or self.isSubtree(s.right, t)
+        
+    def isSame(self, s, t): #这个函数是判断子树里的值是否相等
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        return s.val == t.val and self.isSame(s.left, t.left) and self.isSame(s.right, t.right)
+        
+        
+        ''' BFS + DFS'''
+class Solution:
+    def isSubtree(self, s: TreeNode, t: TreeNode) -> bool:
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        queue = collections.deque([s])
+        while queue:
+            node = queue.popleft()
+            if not node:
+                continue
+            if self.isSame(node, t):
+                return True
+            queue.append(node.left)
+            queue.append(node.right)
+        return False
+        
+    def isSame(self, s, t):
+        if not s and not t:
+            return True
+        if not s or not t:
+            return False
+        return s.val == t.val and self.isSame(s.left, t.left) and self.isSame(s.right, t.right)
+        
