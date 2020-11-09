@@ -31,3 +31,18 @@ class Solution:
         dfs(root)
         return self.balance
         
+        
+        
+        '''法二：使用自顶向下的方法递归‘’‘
+        if not root:
+            return True
+        def dfs(root):
+            if not root:
+                return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+            return max(left, right) + 1
+        if abs(dfs(root.left) - dfs(root.right)) > 1:
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+            
