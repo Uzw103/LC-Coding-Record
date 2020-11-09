@@ -1,0 +1,30 @@
+#
+# @lc app=leetcode id=965 lang=python3
+#
+# [965] Univalued Binary Tree
+#
+'''
+        1. DFS/BSF的简单变形 只需要把res变成判断结点值是否一样即可 下面是BFS版本
+'''
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isUnivalTree(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        queue = collections.deque([root])
+        value = root.val
+        while queue:
+            node = queue.popleft()
+            if node.val != value:
+                return False
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return True
