@@ -1,0 +1,35 @@
+#
+# @lc app=leetcode id=669 lang=python3
+#
+# [669] Trim a Binary Search Tree
+#
+'''
+        1. 主要是用递归+前序遍历
+        2. 先判断根节点是否在题意范围内，如果在 则递归判断其左右子树是否也在范围内
+        3. 如果根节点不在范围内，则重新从其左/右子树的根结点开始判断
+        4. 二叉搜索树：任一结点的左子树的值小于它，右子树的值大于它
+'''
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def trimBST(self, root: TreeNode, low: int, high: int) -> TreeNode:
+        if not root:
+            return 
+        def trim(node):
+            if not node:
+                return 
+            elif node.val < low:
+                return trim(node.right)
+            elif node.val > high:
+                return trim(node.left)
+            else:
+                node.left = trim(node.left)
+                node.right = trim(node.right)
+                return node
+        return trim(root)
