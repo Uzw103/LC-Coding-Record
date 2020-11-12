@@ -1,0 +1,36 @@
+#
+# @lc app=leetcode id=113 lang=python3
+#
+# [113] Path Sum II
+#
+
+'''
+        1. 使用DFS+recursion，创建一个path list来存储深度遍历下的路径结点值
+        2. 前序遍历，即先判断符不符合条件 再进行递归
+        
+'''
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def pathSum(self, root: TreeNode, sum: int) -> List[List[int]]:
+        if not root:
+            return []
+        res = []
+        path = []
+        def preorder(root, sum):
+            if not root:
+                return
+            path.append(root.val)
+            if not root.left and not root.right:
+                if sum == root.val:
+                    res.append(path[:])
+            preorder(root.left, sum - root.val)
+            preorder(root.right, sum - root.val)
+            path.pop()
+        preorder(root, sum)
+        return res
