@@ -1,0 +1,48 @@
+#
+# @lc app=leetcode id=129 lang=python3
+#
+# [129] Sum Root to Leaf Numbers
+#
+'''
+        1. 二叉树的每条路径的结点从root到leaf组成一个n位数，最终求这些leaf多个n位数的和
+        2. 使用DFS或BFS都可以 preorder
+        3. DFS就是创建一个新的函数，里面参数递归时传入上一层结点已累加的和
+        4. BFS就是使用两个queue，一个保存结点，一个保存该节点和其父结点组成的和
+'''
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: TreeNode) -> int:
+        '''DFS-preorder'''
+        if not root:
+            return 0
+        def dfs(root, cursum):
+            if not root:
+                return 0 #递归终止条件，不存在结点，该位置返回的是0 因为最后还要做累加，所以不能返回None,None不能和int相加
+            if not root.left and not root.right:
+                return cursum
+            total = cursum * 10 + root.val
+            return dfs(root.left, total) + dfs(root.right,total)
+        return dfs(root, 0)
+        '''BFS'''
+        if not root:
+            return 0
+        queue, cursum = collections.deque([root]), collections.deque([root.val])
+        total = 0
+        while queue:
+            node = queue.popleft()
+            level_val = cursum.popleft()
+            if not node.left and not node.right:
+                total += level_val
+            if node.left:
+                queue.append(node.left)
+                cursum.append(level_val * 10 + node.left.val)
+            if node.right:
+                queue.append(node.right)
+                cursum.append(level_val * 10 + node.right.val)
+        return total
