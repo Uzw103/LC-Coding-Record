@@ -1,0 +1,48 @@
+#
+# @lc app=leetcode id=257 lang=python3
+#
+# [257] Binary Tree Paths
+#
+
+# @lc code=start
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def binaryTreePaths(self, root: TreeNode) -> List[str]:
+        '''BFS'''
+        if not root:
+            return []
+        res = []
+        queue, path = collections.deque([root]), collections.deque([str(root.val)])
+        while queue:
+            node = queue.popleft()
+            cur_path = path.popleft()
+            if not node.left and not node.right:
+                res.append(path)
+            if node.left:
+                queue.append(node.left)
+                path.append(cur_path + '->' + str(node.left.val))
+            if node.right:
+                queue.append(node.right)
+                path.append(cur_path + '->' + str(node.right.val))
+        return res
+        
+        
+        '''DFS----preorder'''
+        if not root:
+            return []
+        res = []
+        def dfs(root, path):
+            if not root:
+                return
+            path += str(root.val)
+            if not root.left and not root.right:
+                res.append(path)
+            path += '->'
+            dfs(root.left, path)
+            dfs(root.right, path)
+        dfs(root, '')
