@@ -1,18 +1,22 @@
 题目有：
-**94 Binary Tree Inorder Traversal**
+ **94 Binary Tree Inorder Traversal**
 **144 Binary Tree Preorder Traversal**
 **145 Binary Tree Postorder Traversal**
 **429 N-ary Tree Level Order Traversal**
 **589 N-ary Tree Preorder Traversal**
 **590 N-ary Tree Postorder Traversal**
 **987 Vertical Order Traversal of a Binary Tree**
-**1302 Deepest Leaves Sum**
+==**1302**== **Deepest Leaves Sum** **==+ 104==  Maximum Depth of Binary Tree**——*需要定义一个全局最大深度和sum*
 
 **429 N-ary Tree Level Order Traversal**
 
 **872 Leaf-Similar Trees**
 
 **102+107 Binary Tree Level Order Traversal** 
+
+**965 Univalued Binary Tree**
+
+
 
 ---
 
@@ -78,6 +82,12 @@ def dfs(root):
     dfs(root.left)
     dfs(root.right)
 ```
+
+> ==注：==
+>
+> * **使用递归模板时，res必须定义在函数外，**因为递归函数时必须每一次都有返回值，因此需要定义非局部变量来记录res值
+>
+> * **非递归版本只有一个返回值，就是res，因此可以直接函数内部定义列表来记录值**
 
 '''N叉树的前/后序遍历'''
 
