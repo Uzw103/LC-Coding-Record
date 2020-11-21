@@ -4,7 +4,7 @@
 #
 '''
       1. 使用DFS获得最深叶子结点的值 结构与普通二叉树inorder相同 唯一改变的就是append叶子结点要做一下判断再append 不能直接append
-      2. 调用量词dfs来分别生成两个树的叶子结点 直接返回时判断是否相等即可
+            2. 调用量词dfs来分别生成两个树的叶子结点 直接返回时判断是否相等即可
 '''
 
 
@@ -20,15 +20,16 @@ class Solution:
         if not root1 or not root2:
             return False
         def inorder(node):
-            res, stack = [], []
-            while node or stack:
-                while stack:
-                    stack.append(node)
-                    node = node.left
-                node = stack.pop()
-                if not node.left and not node.right:
-                    res.append(node.val)
-                node = node.right
-            return res
-        return inorder(root1) == inorder(root2)
-           
+            res, stack, node = [], [], root
+
+​            while node or stack:
+​                while node:
+​                    stack.append(node)
+​                    node = node.left
+​                node = stack.pop()
+​                if not node.left and not node.right:
+​                    res.append(node.val)
+​                node = node.right
+​            return res
+​        return inorder(root1) == inorder(root2)
+​           
