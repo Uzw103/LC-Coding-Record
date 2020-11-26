@@ -38,9 +38,10 @@ class Solution:
             self.path_num += 1
         self.getPath(root.left, sum - root.val)
         self.getPath(root.right, sum - root.val)
-        
-        
-        
+
+
+​        
+​        
     '''使用hashmap存储当前pathsum的key和value，递归一次即可'''
     def __init__(self):
         self.result = 0
@@ -49,7 +50,7 @@ class Solution:
         dic = {0:1} #存储的是当前遍历到的分支的累加和，和这个和出现的次数 这里首先传进去0，1表示当pastsum值为0，也就是遍历到的结点和恰好是sum时，result要加1，否则就错过了
         self.getSumNum(root, 0, sum, dic)
         return self.result
-
+    
     def getSumNum(self, root, cursum, target, dic):
         if not root:
             return
