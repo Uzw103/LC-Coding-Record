@@ -31,6 +31,8 @@
 
 直接`append(temp)`会根据temp的变化改变append的值
 
+列表元素是整数时，浅复制`ans.copy()`就可以实现两个list互不影响
+
 
 
 ### 对象图Object Graph
