@@ -1,17 +1,44 @@
-'''
-    1. DP思想 首先确定基态 dp[i]表示当前已遍历数组的最大profit
-    2. 状态转移方程：先保存当前数组中最小的 再由当前元素-最小的 与之前保存的最大的值比较 取更大的
-    3. 遍历完数组 返回最大profit即可
-'''
+\#
 
+\# @lc app=leetcode id=121 lang=python3
 
+\#
 
+*\# [121] **Best Time to Buy and Sell Stock***
+
+***\#You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.***
+
+***You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.***
+
+***Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.***
+
+***Example：***
+
+```
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+```
+
+### ==Solution：==
+
+1. **动态规划**：首先确定基态 **dp[i]表示当前已遍历数组的最大profit**
+
+2. 状态转移方程：先保存当前数组中最小的 再由当前元素-最小的 与之前保存的最大的值比较 取更大的
+3. 遍历完数组 返回最大profit即可
+
+\# @lc code=start
+
+```python
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         if len(prices) < 1:
             return 0
-        min_profit, max_profit = prices[0], 0
+        min_prof = prices[0]
+        max_prof = 0
         for i in range(len(prices)):
-            min_profit = min(min_profit, prices[i])
-            max_profit = max(max_profit, prices[i]-min_profit)
-        return max_profit
+            min_prof = min(min_prof, prices[i]) #记录今天之前买入的最小值
+            max_prof = max(max_prof, prices[i]-min_prof)  #比较以今天价格卖出的利润和之前的最大利润
+        return max_prof
+```
